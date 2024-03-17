@@ -56,4 +56,18 @@
     }));
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
+
+  // ページが読み込まれるたびに保存されたタスクとその完了状態をロードし、各タスクに対して適切なスタイルを適用
+  window.addEventListener('load', () => {
+    const taskItems = taskList.querySelectorAll('.task');
+    taskItems.forEach(taskItem => {
+      const taskText = taskItem.textContent;
+      const savedTasks = JSON.parse(localStorage.getItem('tasks'));
+      savedTasks.forEach(task => {
+        if (task.text === taskText && task.completed) {
+          taskItem.classList.add('completed');
+        }
+      });
+    });
+  });
 </script>
